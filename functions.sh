@@ -39,7 +39,6 @@ if [ "$(id -u)" != "0" ]; then
   exit 1
 fi
 
-# Only run with 13.0-CURRENT.
 case $kernrel in
   '13.0-CURRENT')
     echo "Using correct kernel release" 1>&2
