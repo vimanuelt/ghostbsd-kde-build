@@ -19,17 +19,10 @@ release_stamp=""
 time_stamp=`date "+-%Y-%m-%d"`
 # time_stamp=""
 label="GhostBSD"
-
-if [ "$desktop" = "kde" ] ; then
+if [ "$desktop" = "plasma" ] ; then
   union_dirs=${union_dirs:-"boot cdrom dev etc libexec media mnt root tmp usr/home usr/local/etc usr/local/share/plasma var"}
-fi
-
-if [ "$desktop" = "mate" ] ; then
-  union_dirs=${union_dirs:-"boot cdrom dev etc libexec media mnt root tmp usr/home usr/local/
-etc usr/local/share/mate-panel var"}
 else
-  union_dirs=${union_dirs:-"boot cdrom dev etc libexec media mnt root tmp usr/home usr/local/
-etc var"}
+  union_dirs=${union_dirs:-"boot cdrom dev etc libexec media mnt root tmp usr/home usr/local/etc var"}
 fi
 kernrel="`uname -r`"
 
@@ -59,19 +52,19 @@ validate_desktop()
     echo "Invalid choice specified"
     echo "Possible choices are:"
     ls ${cwd}/packages
-    echo "Usage: ./build.sh mate"
+    echo "Usage: ./build.sh plasma"
     exit 1
   fi
 }
 
 # Validate package selection if chosen
 if [ -z "${desktop}" ] ; then
-  desktop=mate
+  desktop=plasma
 else
   validate_desktop
 fi
 
-if [ "${desktop}" != "mate" ] ; then
+if [ "${desktop}" != "plasma" ] ; then
   DESKTOP=$(echo ${desktop} | tr [a-z] [A-Z])
   community="-${DESKTOP}"
 else
@@ -113,14 +106,12 @@ packages_software()
   mount_nullfs ${software_packages} ${release}/var/cache/pkg
   mount -t devfs devfs ${release}/dev
   case $desktop in
-    mate)
-      cat ${cwd}/packages/mate | xargs pkg -c ${release} install -y ;;
-    xfce)
-      cat ${cwd}/packages/xfce | xargs pkg -c ${release} install -y ;;
-    cinnamon)
-      cat ${cwd}/packages/cinnamon | xargs pkg-static -c ${release} install -y ;;
-    kde)
-      cat ${cwd}/packages/kde | xargs pkg -c ${release} install -y ;;
+    plasma)
+      cat ${cwd}/packages/plasma | xargs pkg -c ${release} install -y ;;
+    PlasmaOpenbox)
+      cat ${cwd}/packages/PlasmaOpenbox | xargs pkg -c ${release} install -y ;;
+    PlasmaWayland)
+      cat ${cwd}/packages/PlasmaWayland | xargs pkg -c ${release} install -y ;;
   esac
 
   rm -rfv ${release}/etc/resolv.conf
@@ -164,7 +155,7 @@ user()
 {
   chroot ${release} pw useradd ${liveuser} \
   -c "GhostBSD Live User" -d "/usr/home/${liveuser}" \
-  -g wheel -G operator -m -s /usr/local/bin/fish -k /usr/share/skel -w yes
+  -g wheel -G operator -m -s /usr/local/bin/fish -k /usr/share/skel -w none
 }
 
 extra_config()
@@ -183,12 +174,6 @@ extra_config()
   git_gbi
   setup_liveuser
   setup_base
-  if [ -z "${desktop}" == "kde" ] ; then
-    sddm_setup
-  else
-    lightdm_setup
-    setup_autologin
-  fi
   # setup_xinit
   final_setup
   echo "gop set 0" >> ${release}/boot/loader.rc.local

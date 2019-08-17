@@ -171,6 +171,7 @@ PolicyKit_setting
 # setup_lightdm_and_xinitrc
 # setup_sddm_and_xinitrc
 # set_qt5ct
+set_desktop_manager
 
 # removing the old network configuration
 set_desktop_manager()

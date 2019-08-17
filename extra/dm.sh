@@ -19,6 +19,13 @@ gdm_setup()
   setup_xinit
 }
 
+sddm_setup()
+{
+  echo 'sddm_enable="YES"' >> ${release}/etc/rc.conf
+  setup_xinit
+}
+
+
 setup_xinit()
 {
   if [ "${desktop}" == "mate" ] ; then
@@ -30,5 +37,8 @@ setup_xinit()
   elif [ "${desktop}" == "cinnamon" ] ; then
     echo "exec ck-launch-session cinnamon-session" > ${release}/usr/home/${liveuser}/.xinitrc
     echo "exec ck-launch-session cinnamon-session" > ${release}/root/.xinitrc
+ elif [ "${desktop}" == "kde" ] ; then
+    echo "exec ck-launch-session startplasmacompositor"> ${release}/usr/home/${liveuser}/.xinitrc
+    echo "exec ck-launch-session startplasmacompositor" > ${release}/root/.xinitrc
   fi
 }
