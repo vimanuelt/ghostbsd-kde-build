@@ -173,7 +173,6 @@ PolicyKit_setting
 # set_qt5ct
 set_desktop_manager
 
-# removing the old network configuration
 set_desktop_manager()
 {
   case $desktop in
