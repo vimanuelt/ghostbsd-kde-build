@@ -27,7 +27,7 @@ git_gbi()
 {
   if [ ! -d ${release}/pc-sysinstall ]; then
    echo "Downloading gbi from GitHub"
-   git clone https://github.com/GhostBSD/gbi.git ${release}/gbi >/dev/null 2>&1
+   git clone https://github.com/ghostbsd/gbi.git ${release}/gbi >/dev/null 2>&1
   fi
 
   cat > ${release}/config.sh << 'EOF'
