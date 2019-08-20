@@ -184,7 +184,7 @@ set_desktop_manager()
       ;;
     kde)
       setup_sddm_and_xinitrc
-      set_qt5ct
+#      set_qt5ct
       ;;
   esac
 }
