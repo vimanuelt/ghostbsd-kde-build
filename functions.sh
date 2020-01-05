@@ -43,7 +43,7 @@ case $kernrel in
   '13.0-CURRENT')
     echo "Using correct kernel release" 1>&2
     ;;
-  '12.0-STABLE')
+  '12.1-STABLE')
     echo "Using correct kernel release" 1>&2
     ;;
   *)
