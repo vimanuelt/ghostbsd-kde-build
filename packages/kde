@@ -43,8 +43,9 @@ ghostbsd-icons
 ghostbsd-installed-common-settings
 git
 openjdk8-jre
-py36-setuptools
-py36-goboject3
+python37
+py37-setuptools
+py37-goboject3
 doas
 gtk-update-icon-cache
 hicolor-icon-theme
